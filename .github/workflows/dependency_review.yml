@@ -17,6 +17,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        
+      - name: Submit Dependency Snapshot
+        uses: advanced-security/maven-dependency-submission-action@v1
+
       - name: Dependency validation
         id: dependency_validation
         uses: actions/dependency-review-action@v2
