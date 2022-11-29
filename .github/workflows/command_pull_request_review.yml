@@ -1,0 +1,58 @@
+name: Command - pull request review
+
+on:
+  repository_dispatch:
+    types: command_pull_request_review
+
+jobs:
+  extract_demo_request:
+    name: Extract demo request
+    runs-on: ubuntu-20.04
+
+    outputs:
+      demo_payload: ${{ steps.command_payload.outputs.payload }}
+
+    steps:
+      - name: Extract Slash Command Payload
+        id: command_payload
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const contextPayload = context.payload.client_payload;
+
+            core.startGroup('Context Client Payload');
+            core.info(JSON.stringify(contextPayload, null, 2));
+            core.endGroup();
+
+            function setOutput(name, value) {
+              core.setOutput(name, value);
+
+              core.info(`name:   ${name}`);
+              core.info(`value:  ${value}`);
+            }
+
+            const data = contextPayload.data;
+            const resource = contextPayload.command.resource;
+            const repository = contextPayload.command.repository;
+
+            core.startGroup('Payload extraction');
+            setOutput('outcome', data['Outcome']);
+            setOutput('comment', data['Review Comment']);
+            setOutput('pr_number', resource.number);
+            // setOutput('repository_full_name', repository.full_name);
+            core.endGroup();
+
+      - name: Get temporary token
+        id: temp_token
+        uses: peter-murray/workflow-application-token-action@v1.3.0
+        with:
+          application_id: ${{ secrets.OCTODEMOBOT_APPLICATION_ID_REPO_AUTOMATION }}
+          application_private_key: ${{ secrets.OCTODEMOBOT_APPLICATION_KEY_REPO_AUTOMATION }}
+
+      - name: Apply PR Code Review
+        uses: octodemo/pull-request-review-action@main
+        with:
+          pr_number: ${{ steps.command_payload.outputs.pr_number }}
+          outcome: ${{ steps.command_payload.outputs.outcome }}
+          comment: ${{ steps.command_payload.outputs.comment }}
+          token: ${{ steps.temp_token.outputs.token }}

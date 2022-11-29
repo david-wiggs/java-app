@@ -1,0 +1,8 @@
+name: GitHub CodeQL Configuration
+
+queries:
+  - name: security-extended
+    uses: security-extended
+
+  - name: Log4J JNDI injection
+    uses: github/codeql/java/ql/src/experimental/Security/CWE/CWE-020/Log4jJndiInjection.ql@main
