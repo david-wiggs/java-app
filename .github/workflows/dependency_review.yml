@@ -19,8 +19,10 @@ jobs:
 
       - name: Setup Java
         uses: actions/setup-java@v3
-        with:
-          java-version: '17'
+         with:
+          java-version: 11
+          java-package: jdk
+          distribution: microsoft
         
       - name: Submit Dependency Snapshot
         uses: advanced-security/maven-dependency-submission-action@v1
