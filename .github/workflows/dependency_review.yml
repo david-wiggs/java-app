@@ -25,7 +25,7 @@ jobs:
           distribution: microsoft
         
       - name: Submit Dependency Snapshot
-        uses: advanced-security/maven-dependency-submission-action@v1
+        uses: advanced-security/maven-dependency-submission-action@v2.0.1
 
       - name: Dependency validation
         id: dependency_validation
