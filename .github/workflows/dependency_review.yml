@@ -39,6 +39,6 @@ jobs:
           authToken: ${{ secrets.GITHUB_TOKEN }}
           state: ${{ steps.dependency_validation.outcome }}
           context: Dependency scanning results / Dependency Review
-          description: "${{ steps.dependency_validation.outcome }} - see details for more information"
+          description: "${{ steps.dependency_validation.outcome }} (see details for more information)"
           sha: ${{ github.event.pull_request.head.sha }}
           target_url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
