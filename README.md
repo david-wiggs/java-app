@@ -1,4 +1,4 @@
-# security-v1 demo
+# security-v1 demo 
 
 Demo bookstore application with GitHub Advanced Security features and Azure deployments.
 
