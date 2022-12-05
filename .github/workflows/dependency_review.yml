@@ -31,6 +31,8 @@ jobs:
         id: dependency_validation
         uses: actions/dependency-review-action@v2
         continue-on-error: true
+        with:
+          fail-on-scopes: "compile, runtime, development"
 
       - name: Publish failure validation status
         if: steps.dependency_validation.outcome == 'failure'
