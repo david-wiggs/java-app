@@ -34,7 +34,7 @@ jobs:
           fail-on-scopes: "runtime, development, unknown"
 
       - name: Publish status to PR
-        uses: octodemo/github-status-action@v2
+        uses: octodemo/github-status-action@v3
         with:
           authToken: ${{ secrets.GITHUB_TOKEN }}
           state: ${{ steps.dependency_validation.outcome }}
