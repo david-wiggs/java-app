@@ -2,7 +2,6 @@ name: Dependency Review
 
 on:
   pull_request:
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -42,3 +41,4 @@ jobs:
           state: failure
           context: Dependency Vulnerabilities
           description: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          sha: ${{github.event.pull_request.head.sha}}
